@@ -1,18 +1,32 @@
-# Counter
+Clone the repo
 
-To start your Phoenix server:
+```
+git clone git@github.com:hpatoio/counter.git
+cd counter
+```
 
-  * Setup the project with `mix setup`
-  * Start Phoenix endpoint with `mix phx.server`
+Build the image
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+```
+docker build -t ecdemo .
+```
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+Get the dependencies
 
-## Learn more
+```
+docker run --rm -it -v `pwd`:/usr/src/phoenix/ ecdemo mix deps.get
+```
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+Install assets
+
+```
+docker run --rm -it -v `pwd`:/usr/src/phoenix/ ecdemo npm --prefix assets/ install
+```
+
+Run the application
+
+```
+docker run --rm -it -v `pwd`:/usr/src/phoenix/ -p 4000:4000 ecdemo mix phx.server
+```
+
+Visit your app at http://localhost:4000/counter
