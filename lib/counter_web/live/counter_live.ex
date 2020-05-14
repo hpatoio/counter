@@ -8,8 +8,19 @@ defmodule CounterWeb.CounterLive do
   def render(assigns) do
    ~L"""
     <h1>Count: <%= @count %></h1>
-    <button>+</button>
-    <button>-</button>
+    <button phx-click="increment">+</button>
+    <button phx-click="decrement">-</button>
    """
   end
+
+  def handle_event("increment", _, socket) do
+    count = socket.assigns.count + 1
+    {:noreply, assign(socket, :count, count)}
+  end
+
+  def handle_event("decrement", _, socket) do
+    count = socket.assigns.count - 1
+    {:noreply, assign(socket, :count, count)}
+  end
+
 end
